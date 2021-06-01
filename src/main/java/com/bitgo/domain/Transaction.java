@@ -1,5 +1,6 @@
 package com.bitgo.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties
-public class Transaction {
+public class Transaction implements Comparable<Transaction>{
 
     @JsonProperty("txid")
     private String txId;
@@ -15,6 +16,12 @@ public class Transaction {
     @JsonProperty("locktime")
     private long lockTime;
     private List<Vin> vin;
+    private List<Vout> vout;
+    private long size;
+    private long weight;
+    private long fee;
+    private Status status;
+
     @JsonIgnore
     private List<Transaction> parents;
     @JsonIgnore
@@ -59,6 +66,11 @@ public class Transaction {
     public void setParents(List<Transaction> parents) {
         this.parents = parents;
     }
+    public void addParent(Transaction parent) {
+        if(this.parents == null)
+            this.parents = new ArrayList<>();
+        this.parents.add(parent);
+    }
 
     public int getAncestryCount() {
         return ancestryCount;
@@ -66,5 +78,50 @@ public class Transaction {
 
     public void setAncestryCount(int ancestryCount) {
         this.ancestryCount = ancestryCount;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
+    }
+
+    public long getWeight() {
+        return weight;
+    }
+
+    public void setWeight(long weight) {
+        this.weight = weight;
+    }
+
+    public long getFee() {
+        return fee;
+    }
+
+    public void setFee(long fee) {
+        this.fee = fee;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public List<Vout> getVout() {
+        return vout;
+    }
+
+    public void setVout(List<Vout> vout) {
+        this.vout = vout;
+    }
+
+    @Override
+    public int compareTo(Transaction o) {
+        return Integer.compare(this.getAncestryCount(), o.getAncestryCount());
     }
 }

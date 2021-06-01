@@ -3,6 +3,8 @@ package com.bitgo.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 @JsonIgnoreProperties
 public class Vin {
     @JsonProperty("txid")
@@ -10,6 +12,18 @@ public class Vin {
     private long vout;
     @JsonProperty("is_coinbase")
     private boolean isCoinBase;
+    @JsonProperty("prevout")
+    private Vout prevOut;
+    private String scriptsig;
+    @JsonProperty("scriptsig_asm")
+    private String scriptsigAsm;
+    private List<String> witness;
+    private long sequence;
+    @JsonProperty("inner_redeemscript_asm")
+    private String innerRedeemscriptAsm;
+    @JsonProperty("inner_witnessscript_asm")
+    private String innerWitnessscriptAsm;
+
 
     public String getTxId() {
         return txId;
@@ -33,5 +47,61 @@ public class Vin {
 
     public void setCoinBase(boolean coinBase) {
         isCoinBase = coinBase;
+    }
+
+    public String getScriptsig() {
+        return scriptsig;
+    }
+
+    public void setScriptsig(String scriptsig) {
+        this.scriptsig = scriptsig;
+    }
+
+    public String getScriptsigAsm() {
+        return scriptsigAsm;
+    }
+
+    public void setScriptsigAsm(String scriptsigAsm) {
+        this.scriptsigAsm = scriptsigAsm;
+    }
+
+    public List<String> getWitness() {
+        return witness;
+    }
+
+    public void setWitness(List<String> witness) {
+        this.witness = witness;
+    }
+
+    public long getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(long sequence) {
+        this.sequence = sequence;
+    }
+
+    public Vout getPrevOut() {
+        return prevOut;
+    }
+
+    public void setPrevOut(Vout prevOut) {
+        this.prevOut = prevOut;
+    }
+
+    public String getInnerRedeemscriptAsm() {
+        return innerRedeemscriptAsm;
+    }
+
+    public void setInnerRedeemscriptAsm(String innerRedeemscriptAsm) {
+        this.innerRedeemscriptAsm = innerRedeemscriptAsm;
+    }
+
+    public String getInnerWitnessscriptAsm() {
+        return innerWitnessscriptAsm;
+    }
+
+    public void setInnerWitnessscriptAsm(String innerWitnessscriptAsm) {
+        this.innerWitnessscriptAsm = innerWitnessscriptAsm;
     }
 }

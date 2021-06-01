@@ -16,10 +16,12 @@ public class BlockchainService {
         int i =0;
         while(true) {
             try {
-                result.addAll(client.getTransactions(blockHash, i));
+                List<Transaction> transactions = client.getTransactions(blockHash, i);
+                result.addAll(transactions);
+                if(transactions.size() < EsploraClient.TRANSACTION_PAGE_SIZE)
+                    break;
             } catch (Exception e){
                 System.out.println(e.getMessage());
-                e.printStackTrace();
                 break;
             }
             i++;

@@ -16,7 +16,7 @@ public class EsploraClient {
 
     private static final HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
     private static final String API_ENDPOINT = "https://blockstream.info/api/";
-    private static final int TRANSACTIO_PAGE_SIZE = 25;
+    public static final int TRANSACTION_PAGE_SIZE = 25;
 
     public String getBlockHash(long blockHeight) {
         var request = HttpRequest.newBuilder(
@@ -36,7 +36,7 @@ public class EsploraClient {
     }
 
     public List<Transaction> getTransactions(String blockHash, int pageId) {
-        int startIndex = pageId * 25;
+        int startIndex = pageId * TRANSACTION_PAGE_SIZE;
         var request = HttpRequest.newBuilder(
                 URI.create(API_ENDPOINT + "block/" + blockHash + "/txs/" + startIndex))
                 .build();
