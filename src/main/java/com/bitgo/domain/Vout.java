@@ -51,4 +51,15 @@ public class Vout{
     public void setValue(long value) {
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "Vout{" +
+                "scriptpubkey='" + scriptpubkey + '\'' +
+                ", scriptpubkeyAsm='" + scriptpubkeyAsm + '\'' +
+                ", scriptpubkeyType='" + scriptpubkeyType + '\'' +
+                ", scriptpubkeyAddress='" + scriptpubkeyAddress + '\'' +
+                ", value=" + value +
+                '}';
+    }
 }

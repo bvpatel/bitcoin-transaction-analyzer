@@ -1,6 +1,7 @@
 package com.bitgo;
 
 import com.bitgo.domain.Transaction;
+import com.bitgo.exception.TransactionAnalyzerException;
 import com.bitgo.service.AncestryService;
 import com.bitgo.service.BlockchainService;
 import com.bitgo.service.TopTransactionService;
@@ -43,6 +44,8 @@ public class TransactionAnalyzer {
         TopTransactionService topTransactionService = new TopTransactionService();
         //Fetch All Block from block height
         List<Transaction> transactions = blockchainService.getAllTransactions(blockHeight);
+        if(transactions.size() == 0)
+            throw new TransactionAnalyzerException("Not found any transactions for block height: " + blockHeight);
         System.out.println("Total transactions: " + transactions.size());
         //Build graph from all transaction and Calculate ancestry
         ancestryService.calculateAncestry(transactions);

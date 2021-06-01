@@ -1,8 +1,9 @@
-package com.bitgo.api;
+package com.bitgo.api.impl;
 
+import com.bitgo.api.BlockchainExplorerClient;
 import com.bitgo.domain.Transaction;
 import com.bitgo.exception.BlockNotFoundException;
-import com.bitgo.exception.EsploraClientException;
+import com.bitgo.exception.BlockstreamClientException;
 import com.bitgo.util.JsonBodyHandler;
 
 import java.net.URI;
@@ -12,7 +13,7 @@ import java.net.http.HttpResponse;
 import java.util.Arrays;
 import java.util.List;
 
-public class EsploraClient {
+public class BlockstreamClient implements BlockchainExplorerClient {
 
     private static final HttpClient client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2).build();
     private static final String API_ENDPOINT = "https://blockstream.info/api/";
@@ -26,7 +27,7 @@ public class EsploraClient {
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception ex) {
-            throw new EsploraClientException("Error occurred While getting block hash from block height: " + blockHeight, ex);
+            throw new BlockstreamClientException("Error occurred While getting block hash from block height: " + blockHeight, ex);
         }
         if (response.statusCode() != 200) {
             throw new BlockNotFoundException();
@@ -44,7 +45,7 @@ public class EsploraClient {
         try {
             response = client.send(request, new JsonBodyHandler<>(Transaction[].class));
         } catch (Exception ex) {
-            throw new EsploraClientException("Error occurred While getting transaction from index: " + startIndex + ", Block Hash: " + blockHash, ex);
+            throw new BlockstreamClientException("Error occurred While getting transaction from index: " + startIndex + ", Block Hash: " + blockHash, ex);
         }
         if (response.statusCode() != 200) {
             throw new BlockNotFoundException();

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+import java.util.Objects;
 
 @JsonIgnoreProperties
 public class Vin {
@@ -103,5 +104,34 @@ public class Vin {
 
     public void setInnerWitnessscriptAsm(String innerWitnessscriptAsm) {
         this.innerWitnessscriptAsm = innerWitnessscriptAsm;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vin vin = (Vin) o;
+        return txId.equals(vin.txId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(txId);
+    }
+
+    @Override
+    public String toString() {
+        return "Vin{" +
+                "txId='" + txId + '\'' +
+                ", vout=" + vout +
+                ", isCoinBase=" + isCoinBase +
+                ", prevOut=" + prevOut +
+                ", scriptsig='" + scriptsig + '\'' +
+                ", scriptsigAsm='" + scriptsigAsm + '\'' +
+                ", witness=" + witness +
+                ", sequence=" + sequence +
+                ", innerRedeemscriptAsm='" + innerRedeemscriptAsm + '\'' +
+                ", innerWitnessscriptAsm='" + innerWitnessscriptAsm + '\'' +
+                '}';
     }
 }

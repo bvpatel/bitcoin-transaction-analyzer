@@ -2,6 +2,7 @@ package com.bitgo.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -123,5 +124,35 @@ public class Transaction implements Comparable<Transaction>{
     @Override
     public int compareTo(Transaction o) {
         return Integer.compare(this.getAncestryCount(), o.getAncestryCount());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return txId.equals(that.txId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(txId);
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "txId='" + txId + '\'' +
+                ", version=" + version +
+                ", lockTime=" + lockTime +
+                ", vin=" + vin +
+                ", vout=" + vout +
+                ", size=" + size +
+                ", weight=" + weight +
+                ", fee=" + fee +
+                ", status=" + status +
+                ", parents=" + parents +
+                ", ancestryCount=" + ancestryCount +
+                '}';
     }
 }

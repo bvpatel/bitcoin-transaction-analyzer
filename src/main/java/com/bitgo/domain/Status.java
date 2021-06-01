@@ -43,4 +43,13 @@ public class Status {
         this.blockHash = blockHash;
     }
 
+    @Override
+    public String toString() {
+        return "Status{" +
+                "confirmed=" + confirmed +
+                ", blockHeight=" + blockHeight +
+                ", blockHash='" + blockHash + '\'' +
+                ", blockTime=" + blockTime +
+                '}';
+    }
 }
