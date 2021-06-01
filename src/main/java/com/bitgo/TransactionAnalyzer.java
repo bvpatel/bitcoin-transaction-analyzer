@@ -7,7 +7,7 @@ import com.bitgo.service.TopTransactionService;
 
 import java.util.List;
 
-public class App 
+public class TransactionAnalyzer
 {
     public static void main( String[] args )  {
         BlockchainService blockchainService = new BlockchainService();
@@ -20,8 +20,8 @@ public class App
         ancestryService.calculateAncestry(transactions);
         // Top n using min heap tree
         List<Transaction> topTransactions = topTransactionService.getTopTransaction(transactions, 10);
-        for(Transaction transaction: topTransactions) {
-            System.out.println("TxId: " + transaction.getTxId() + ", Ancestry size: " + transaction.getAncestryCount());
+        for(int i = topTransactions.size() -1 ; i>=0; i--) {
+            System.out.println("TxId: " + topTransactions.get(i).getTxId() + ", Ancestry size: " + topTransactions.get(i).getAncestryCount());
         }
     }
 }
